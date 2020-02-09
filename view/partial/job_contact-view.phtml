@@ -1,0 +1,48 @@
+<?php
+# Only show partial if data is set
+if(array_key_exists('job_contact',$this->aPartialData)) {
+    # add address form fields
+    $oContact = $this->aPartialData['job_contact']['oContact'];
+    $aFields = $this->aPartialData['job_contact']['aFields'];
+    if($oContact) {
+        $aFieldsByTab = ['contact-base'=>$aFields];
+        $sName = $oContact->getTextField('firstname').' '.$oContact->getTextField('lastname');
+        if($oContact->getSelectFieldID('title_idfs') != 0) {
+            $sName = $oContact->getSelectField('title_idfs')->tag_value.' '.$sName;
+        }
+        if($oContact->getSelectFieldID('salutation_idfs') != 0) {
+            $sName = $oContact->getSelectField('salutation_idfs')->tag_value.' '.$sName;
+        }
+        ?>
+        <div class="row">
+            <div class="col-md-12">
+                <i class="fas fa-user"></i> <?=$sName?><br/>
+                <hr/>
+                <i class="fas fa-envelope"></i> <?=($oContact->getTextField('email')) ? $oContact->getTextField('email') : '-'?><br/>
+                <i class="fas fa-phone"></i> <?=($oContact->getTextField('phone')) ? $oContact->getTextField('phone') : '-'?><br/>
+                <hr/>
+                <?php
+                if(isset($oContact->oAddresses)) {
+                    if(count($oContact->oAddresses) > 0) {
+                        foreach($oContact->oAddresses as $oAddr) { ?>
+                            <i class="fas fa-home"></i> <?=($oAddr->getTextField('street')) ? $oAddr->getTextField('street') : ''?><br/>
+                            <?=($oAddr->getTextField('zip')) ? $oAddr->getTextField('zip') : ''?> <?=($oAddr->getTextField('city')) ? $oAddr->getTextField('city') : ''?><br/>
+                        <?php
+                        }
+                    }
+                }
+                ?>
+            </div>
+        </div>
+    <?php } else { ?>
+        <div class="alert alert-info px-2 py-2">
+            <?=$this->translate('No Contact data for this job yet')?>
+        </div>
+    <?php
+    }
+} else { ?>
+    <div class="alert alert-danger px-2 py-2">
+        <?= $this->translate('Could not load contact data') ?>
+    </div>
+    <?php
+}
