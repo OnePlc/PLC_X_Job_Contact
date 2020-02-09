@@ -15,7 +15,8 @@
   "require-dev": {
     "phpunit/phpunit": "^8",
     "laminas/laminas-test": "^3.3.0",
-    "php-coveralls/php-coveralls": "^2.2"
+    "php-coveralls/php-coveralls": "^2.2",
+    "oneplace/oneplace-contact-address": "^1.0.0"
   },
   "require": {
     "php": "^7.1"

@@ -89,7 +89,8 @@ class ContactController extends CoreEntityController {
                 }
             }
         }
-
+        $aFieldsByTab = ['job_contact'=>$aFields];
+        //var_dump($aFieldsByTab);
         # Pass Data to View - which will pass it to our partial
         return [
             # must be named aPartialExtraData
@@ -98,6 +99,7 @@ class ContactController extends CoreEntityController {
                 'job_contact'=> [
                     'oContact'=>$oContact,
                     'aFields'=>$aFields,
+                    'aFormFields'=>$aFieldsByTab,
                 ]
             ]
         ];
