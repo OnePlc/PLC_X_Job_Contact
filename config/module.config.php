@@ -20,6 +20,22 @@ use Laminas\Router\Http\Segment;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 
 return [
+    # Contact Module - Routes
+    'router' => [
+        'routes' => [
+            'job-contact-setup' => [
+                'type'    => Literal::class,
+                'options' => [
+                    'route'    => '/job/contact/setup',
+                    'defaults' => [
+                        'controller' => Controller\InstallController::class,
+                        'action'     => 'checkdb',
+                    ],
+                ],
+            ],
+        ],
+    ], # Routes
+
     # View Settings
     'view_manager' => [
         'template_path_stack' => [

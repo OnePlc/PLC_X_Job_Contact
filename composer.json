@@ -2,14 +2,14 @@
   "name": "oneplace/oneplace-job-contact",
   "description": "onePlace Job Contact Plugin. Link Jobs directly to Contacts",
   "type": "oneplace-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "BSD-3-Clause",
   "keywords": [
     "laminas",
     "mvc",
     "oneplace-module",
     "oneplace",
-    "skeleton",
+    "contact",
     "framework"
   ],
   "require-dev": {

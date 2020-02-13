@@ -31,7 +31,7 @@ class Module {
      *
      * @since 1.0.0
      */
-    const VERSION = '1.0.0';
+    const VERSION = '1.0.1';
 
     /**
      * Load module config file
@@ -49,7 +49,7 @@ class Module {
         $application = $e->getApplication();
         $container    = $application->getServiceManager();
         $oDbAdapter = $container->get(AdapterInterface::class);
-        $tableGateway = $container->get(JobTable::class);
+        $tableGateway = $container->get(ContactTable::class);
 
         # Register Filter Plugin Hook
         CoreEntityController::addHook('job-view-before',(object)['sFunction'=>'attachContact','oItem'=>new ContactController($oDbAdapter,$tableGateway,$container)]);
@@ -57,12 +57,15 @@ class Module {
     }
 
     /**
+     * Load Models
+     */
+
+    /**
      * Load Controllers
      */
     public function getControllerConfig() : array {
         return [
             'factories' => [
-                # Plugin Example Controller
                 Controller\ContactController::class => function($container) {
                     $oDbAdapter = $container->get(AdapterInterface::class);
                     $tableGateway = $container->get(JobTable::class);
@@ -75,7 +78,16 @@ class Module {
                         $container
                     );
                 },
+                # Installer
+                Controller\InstallController::class => function($container) {
+                    $oDbAdapter = $container->get(AdapterInterface::class);
+                    return new Controller\InstallController(
+                        $oDbAdapter,
+                        $container->get(Model\ContactTable::class),
+                        $container
+                    );
+                },
             ],
         ];
-    }
+    } # getControllerConfig()
 }
